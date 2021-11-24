@@ -16,5 +16,7 @@ namespace DiscountStore
         public double DiscountPrice { get; set; }
 
         public double DiscountCount { get; set; }
+
+        public string Description { get; set; }
     }
 }

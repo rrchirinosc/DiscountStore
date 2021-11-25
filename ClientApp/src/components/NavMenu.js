@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Collapse, Container, Navbar, NavbarBrand, NavbarToggler, NavItem, NavLink } from 'reactstrap';
+import { Collapse, Container, Navbar, NavbarBrand, NavItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './NavMenu.css';
+import { CartButton } from './CartButtonComponent';
 
 export class NavMenu extends Component {
   static displayName = NavMenu.name;
@@ -26,15 +27,12 @@ export class NavMenu extends Component {
       <header>
         <Navbar className="navbar-expand-sm navbar-toggleable-sm ng-white border-bottom box-shadow mb-3" light>
           <Container>
-            <NavbarBrand tag={Link} to="/">DiscountStore</NavbarBrand>
-            <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-            <Collapse className="d-sm-inline-flex flex-sm-row-reverse" isOpen={!this.state.collapsed} navbar>
+            <NavbarBrand tag={Link} to="/"><h2>DiscountStore</h2></NavbarBrand>
               <ul className="navbar-nav flex-grow">
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/cart">Cart</NavLink>
+                    <CartButton/>
                 </NavItem>
               </ul>
-            </Collapse>
           </Container>
         </Navbar>
       </header>

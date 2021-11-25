@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-//import { Nav, Tab, Row, Col } from 'react-bootstrap';
+import { Card, CardBody, CardTitle, CardText, CardFooter } from 'reactstrap';
 
 
 export class Home extends Component {
@@ -20,25 +20,25 @@ export class Home extends Component {
 
     /* Render members table */
     static renderItemsTable(items) {
-        return (
-
-            <table className='table table-striped' aria-labelledby="tabelLabel">
-                <thead>
-                    <tr>
-                        <th>SKU</th>
-                        <th>Price (€)</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {items.map(item =>
-                        <tr key={item.id}>
-                            <td>{item.sku}</td>
-                            <td>{item.price}</td>
-                        </tr>
+            return (
+                <div className="col-lg-8">
+                    {items.map(item =>     
+                        <Card className="my-4">
+                            <CardBody>
+                                <CardTitle className="d-flex justify-content-between">
+                                    <div><span className="item-data">{item.sku}</span></div>
+                                    <div>Price: <span className="item-data">{item.price}€</span></div>
+                                </CardTitle>
+                                {item.discountPrice ? <CardText className="discount-text">{item.discountCount} for {item.discountPrice}€ </CardText> : <CardText className="discount-text-clear">"-"</CardText>}
+                                <CardText>{item.description}</CardText>                                
+                            </CardBody>
+                            <CardFooter className="card-footer">
+                                <a href="#" className="btn btn-warning float-right">Add to Cart</a>
+                            </CardFooter>
+                        </Card>
                     )}
-                </tbody>
-            </table>
-        );
+                </div>
+            );
     }
 
     /* Retrieve all available items */
@@ -58,7 +58,7 @@ export class Home extends Component {
         return (
             <React.Fragment>
                 <div className="col-lg-12">
-                    <h5>Items list</h5>
+                    <h5>Sale Items</h5>
                     {items}
                 </div>
             </React.Fragment>

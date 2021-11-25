@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router';
+import { Route } from "react-router-dom";
 import { Layout } from './components/Layout';
 import { Home } from './components/HomeComponent';
 import { Cart } from './components/CartComponent';
@@ -10,9 +10,9 @@ export default class App extends Component {
 
   render () {
     return (
-      <Layout>
+        <Layout>            
             <Route exact path='/' component={Home} />
-            <Route exact path='/cart' component={Cart} />
+            <Route exact path='/cart' component={Cart} />  
       </Layout>
     );
   }

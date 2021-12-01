@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Dapper.Contrib.Extensions;
 
 namespace DiscountStore
 {
@@ -18,5 +15,8 @@ namespace DiscountStore
         public double DiscountCount { get; set; }
 
         public string Description { get; set; }
+
+        [Computed] // Have dapper ignore mapping this, used for Cart
+        public int Count { get; set; } = 0;
     }
 }

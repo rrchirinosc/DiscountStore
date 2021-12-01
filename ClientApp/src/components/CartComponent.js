@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import CartItem from './StoreItemComponent';
+import StoreItem from './StoreItemComponent';
 
 
 function onCartItemsChange () {
@@ -81,7 +81,7 @@ function Cart(props) {
                     <div className="col-lg-8">
                         {cartItems.map(item =>
                             <div key={item.id} className= "cart-item mb-2">
-                                <CartItem  item={item} />
+                                <StoreItem  item={item} />
                                 <CartItemFooter item={item} />
                             </div>
                         )}

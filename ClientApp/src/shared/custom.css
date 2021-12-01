@@ -3,7 +3,6 @@
     margin:50px 0;
 }
 
-
 a {
   color: #0366d6;
 }
@@ -26,9 +25,11 @@ code {
 .cart-items-count {
     background-color: #000088;
     color: #dddddd;
-    width:fit-content;
-    height:fit-content;
-    border-radius: 50%;
+    width:40px;
+    height:40px;
+    border-radius: 100%;
+    margin:0, auto;
+    text-align:center;
 }
 
 a:link {

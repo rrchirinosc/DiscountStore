@@ -8,8 +8,8 @@ function CartButton(props) {
     return (
         <Link to="/cart">
             <div className="d-flex cart-button">
-                <h4 className="p-2">Cart</h4>
-                <h4 className="cart-items-count p-2">{cartItemsCount}</h4>
+                <h5 className="p-2">Cart</h5>
+                <h5 className="cart-items-count p-2">{cartItemsCount}</h5>
             </div>
         </Link>
     );

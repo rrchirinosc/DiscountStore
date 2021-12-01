@@ -1,15 +1,15 @@
 ﻿import React from 'react';
-import { Card, CardBody, CardTitle, CardText, CardFooter, Button } from 'reactstrap';
+import { Button } from 'reactstrap';
+import StoreItem from './StoreItemComponent';
 
-function DisplayDiscount({ item }) {
 
-    if (item.discountPrice !== 0) {
-        return (
-            <CardText className="discount-text">Get {item.discountCount} for {item.discountPrice}&#8364;
-            </CardText>
-        );
-    }
-    return null;
+function StoreItemFooter({ items, item, onCartChanged }) {
+
+    return (
+        <div className="card-bottom" >
+            <Button className="btn btn-warning float-right" onClick={() => addItemToCart(items, item, onCartChanged)}>Add to Cart</Button>
+        </div >
+    );
 }
 
 function addItemToCart(items, item, onCartChanged) {
@@ -24,19 +24,10 @@ function RenderItemsTable({ items, onCartChanged }) {
    return (
         <div className="col-lg-8">
            {items.map(item =>
-               <Card key={item.id} className="my-4">
-                    <CardBody>
-                        <CardTitle className="d-flex justify-content-between">
-                            <div><span className="item-data">{item.sku}</span></div>
-                           <div>Price: <span className="item-data">{item.price}&#8364;</span></div>
-                        </CardTitle>
-                        <DisplayDiscount item={item}/>
-                        <CardText>{item.description}</CardText>
-                    </CardBody>
-                    <CardFooter className="card-footer">
-                        <Button className="btn btn-warning float-right" onClick={() => addItemToCart(items, item, onCartChanged)}>Add to Cart</Button>
-                    </CardFooter>
-                </Card>
+               <div key={item.id} className="cart-item mb-2">
+                   <StoreItem item={item} />
+                   <StoreItemFooter items={items} item={item} onCartChanged={onCartChanged}/>
+                </div>
             )}
         </div>
     );

@@ -1,0 +1,29 @@
+[
+  {
+    "Id": 0,
+    "SKU": "Vase",
+    "Price": 1.2,
+    "DiscountPrice": 0,
+    "DiscountCount": 0,
+    "Description": "Clear glass, 20cm",
+    "Count": 0
+  },
+  {
+    "Id": 1,
+    "SKU": "Big mug",
+    "Price": 1.0,
+    "DiscountPrice": 1.5,
+    "DiscountCount": 2,
+    "Description": "Various colors, 50 cl",
+    "Count": 0
+  },
+  {
+    "Id": 2,
+    "SKU": "Napkins pack",
+    "Price": 0.45,
+    "DiscountPrice": 0.90,
+    "DiscountCount": 3,
+    "Description": "Various designs, 20x20 cm",
+    "Count": 0
+  }
+]

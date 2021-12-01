@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Options;
+using System;
 using System.Data.SqlClient;
 
 namespace DiscountStore
@@ -34,7 +35,14 @@ namespace DiscountStore
                 if (_connection == null)
                 {
                     SqlConnection connection = new SqlConnection(AppOptions.ConnectionString);
-                    connection.Open();
+                    try
+                    {                        
+                        connection.Open();
+                    }
+                    catch (Exception e)
+                    {
+                        // let null return go through to be handled ahead
+                    }
                     _connection = connection;
                 }
                 return _connection;

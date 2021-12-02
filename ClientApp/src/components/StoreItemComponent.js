@@ -1,6 +1,8 @@
 ﻿import React from 'react';
 import { Card, CardBody, CardTitle, CardText } from 'reactstrap';
 
+
+/* Renders the item discount if any */
 function DisplayDiscount({ item }) {
 
     if (item.discountPrice !== 0) {
@@ -12,6 +14,7 @@ function DisplayDiscount({ item }) {
     return null;
 }
 
+/* Component that renders store item with all the pertinent info about it */
 function StoreItem(props) {
 
     const { item } = props;

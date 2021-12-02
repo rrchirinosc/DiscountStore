@@ -3,15 +3,7 @@ import { Button } from 'reactstrap';
 import StoreItem from './StoreItemComponent';
 
 
-function StoreItemFooter({ items, item, cartAddItem }) {
-
-    return (
-        <div className="card-bottom" >
-            <Button className="btn btn-warning float-right" onClick={() => addItemToCart(item, cartAddItem)}>Add to Cart</Button>
-        </div >
-    );
-}
-
+/* Add item to the Cart going through the corresponding Main component callback */
 function addItemToCart(item, cartAddItem) {
 
     cartAddItem(item);
@@ -32,8 +24,18 @@ function RenderStoreItems({ items, cartAddItem }) {
     );
 }
 
+/* Handles the item's adding to cart. Sits below item's display */
+function StoreItemFooter({ items, item, cartAddItem }) {
 
-function Home(props) {
+    return (
+        <div className="card-bottom" >
+            <Button className="btn btn-warning float-right" onClick={() => addItemToCart(item, cartAddItem)}>Add to Cart</Button>
+        </div >
+    );
+}
+
+/* This component is in charge of displaying the store items and allow adding them to the Cart */
+ function Home(props) {
 
     const { items, loading, cartAddItem } = props;
 
@@ -46,7 +48,10 @@ function Home(props) {
         return (
             <>
                 <div className="col-lg-12">
-                    <h3 className="page-header">Sale Articles<h5>(max 5 items per article)</h5></h3>
+                    <div className="page-header">
+                        <h3>Sale Articles</h3>
+                        <h5>(max 5 items per article)</h5>
+                    </div>
                     <RenderStoreItems items={items} cartAddItem={cartAddItem}/>
                 </div>
             </>

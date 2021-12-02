@@ -3,7 +3,7 @@ import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import StoreItem from './StoreItemComponent';
 
-
+/* Handles Adding/Removing items from the cart */
 function handleCartChange(item, value, cartAddItem, cartRemoveItem) {
 
     if (item.count < value) {
@@ -17,6 +17,8 @@ function handleCartChange(item, value, cartAddItem, cartRemoveItem) {
     }
  }
 
+/* Holds the item's adding/removing items to/from the cart control.*/
+/* Sits below the cart item's display */
 function CartItemFooter({ item, cartAddItem, cartRemoveItem }) {
 
     return (
@@ -38,7 +40,7 @@ function CartItemFooter({ item, cartAddItem, cartRemoveItem }) {
     );
 }
 
-
+/* Calculates and displays the checkout's subtotal */
 function CartSubtotal({ cartItems, cartItemsCount }) {
     
     if (cartItemsCount === 0)
@@ -68,7 +70,8 @@ function CartSubtotal({ cartItems, cartItemsCount }) {
     }
 }
 
-
+/* Cart component in charge of displaying and/or modifying the selected items. */
+/* It also displays the checkout box */
 function Cart(props) {
 
     const { cartItemsCount, cartItems, cartAddItem, cartRemoveItem } = props;

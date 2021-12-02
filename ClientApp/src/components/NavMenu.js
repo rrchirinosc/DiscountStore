@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import CartButton from './CartButtonComponent';
 import '../shared/NavMenu.css';
 
+/* Navbar component holding the navbrand and the cart button */
 function NavMenu(props) {
     const { cartItemsCount } = props;
 

@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace DiscountStore
 {
+    /* In charge of fetching the store items from the DB */
     public class ItemsModel
     {
         public List<ItemDTO> Items;

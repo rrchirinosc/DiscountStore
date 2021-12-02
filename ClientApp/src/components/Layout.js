@@ -2,7 +2,7 @@ import React from 'react';
 import { Container } from 'reactstrap';
 import NavMenu from './NavMenu';
 
-
+/* App skeleton */
 function Layout(props) {
 
    const { children, cartItemsCount, items } = props;
@@ -16,6 +16,5 @@ function Layout(props) {
         </div>
     );
 }
-
 
 export default Layout;

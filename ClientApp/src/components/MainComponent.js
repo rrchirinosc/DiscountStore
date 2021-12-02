@@ -4,7 +4,7 @@ import Layout from './Layout';
 import Home from './HomeComponent';
 import Cart from './CartComponent';
 
-
+/* This class sits above the Home and Cart components which compose the 2 app pages */
 class Main extends Component {
 
     constructor(props) {
@@ -15,15 +15,24 @@ class Main extends Component {
         this.cartRemoveItem = this.cartRemoveItem.bind(this);
     }
 
+    /* Fetch store items from the DB */
     componentDidMount() {
         this.fetchItems();
+    }
+
+    /* Retrieve all available items */
+    async fetchItems() {
+        const response = await fetch('/api/items');
+        const data = await response.json();
+        //console.log(await response.text());
+        this.setState({ items: data, loading: false });
     }
 
     /* Count cart items */
     countCartItems(inCart) {
 
         let count = 0;
-        inCart.map(item => { count += item.count; });
+        inCart.map(item => { count += item.count; return count; });
 
         return count;
     }
@@ -84,14 +93,7 @@ class Main extends Component {
         this.setState({ cartItemsCount: this.countCartItems(inCart) });
     }
 
-    /* Retrieve all available items */
-    async fetchItems() {
-        const response = await fetch('/api/items');
-        const data = await response.json();
-        //console.log(await response.text());
-        this.setState({ items: data, loading: false });
-    }
-
+    /* Render the app pages */
     render() {
         const HomePage = () => {
             return (

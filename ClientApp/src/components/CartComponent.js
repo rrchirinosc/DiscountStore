@@ -4,25 +4,34 @@ import { Link } from 'react-router-dom';
 import StoreItem from './StoreItemComponent';
 
 
-function onCartItemsChange () {
-    alert("cart count changed");
-}
+function handleCartChange(item, value, cartAddItem, cartRemoveItem) {
 
+    if (item.count < value) {
+        return cartAddItem(item, value - item.count);
+    }
+    else {
+        if (item.count > value)
+            return cartRemoveItem(item, item.count - value);
+        else
+            return; // no change
+    }
+ }
 
-function CartItemFooter({ item }) {
+function CartItemFooter({ item, cartAddItem, cartRemoveItem }) {
 
-    return( 
-        <div className = "card-bottom" >
+    return (
+        <div className="card-bottom" >
             <div className="input-group float-right">
                 <div className="input-group-prepend">
-                    <label className="input-group-text" htmlFor="inputGroupSelect01">Quantity</label>
+                    <label className="input-group-text" htmlFor="itemQuantity">Quantity</label>
                 </div>
-                <select value={item.count} className="custom-select" id="inputGroupSelect01" onChange={onCartItemsChange}>
+                <select value={item.count} className="custom-select" id="itemQuantity" onChange={e => handleCartChange(item, e.target.value, cartAddItem, cartRemoveItem)}>
                     <option value="0">0</option>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
+                    <option value="5">5</option>
                 </select>
             </div>
         </div >
@@ -43,7 +52,7 @@ function CartSubtotal({ cartItems, cartItemsCount }) {
             }
             else {
                 subTotal += ((item.count % item.discountCount) * item.price) +
-                    (item.count / item.discountCount) * item.discountPrice;
+                    parseInt((item.count / item.discountCount), 10) * item.discountPrice;
             }
             return subTotal;
         })
@@ -62,7 +71,7 @@ function CartSubtotal({ cartItems, cartItemsCount }) {
 
 function Cart(props) {
 
-    const { cartItemsCount, cartItems } = props;
+    const { cartItemsCount, cartItems, cartAddItem, cartRemoveItem } = props;
 
     if (cartItemsCount === 0) {
         return (
@@ -72,17 +81,19 @@ function Cart(props) {
         );
     }
     else {
+        // previously cart item with quantity now set to zero still 
+        // shows as so this is by design
         return (
             <>
                 <div>
                     <h3 className="page-header">Cart</h3>
                 </div>
                 <div className="d-flex">
-                    <div className="col-lg-8">
+                    <div className="col-lg-8">  
                         {cartItems.map(item =>
                             <div key={item.id} className= "cart-item mb-2">
-                                <StoreItem  item={item} />
-                                <CartItemFooter item={item} />
+                                <StoreItem item={item} />
+                                <CartItemFooter item={item} cartAddItem={cartAddItem} cartRemoveItem={cartRemoveItem} />
                             </div>
                         )}
                     </div>

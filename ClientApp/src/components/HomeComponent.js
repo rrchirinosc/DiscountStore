@@ -3,30 +3,29 @@ import { Button } from 'reactstrap';
 import StoreItem from './StoreItemComponent';
 
 
-function StoreItemFooter({ items, item, onCartChanged }) {
+function StoreItemFooter({ items, item, cartAddItem }) {
 
     return (
         <div className="card-bottom" >
-            <Button className="btn btn-warning float-right" onClick={() => addItemToCart(items, item, onCartChanged)}>Add to Cart</Button>
+            <Button className="btn btn-warning float-right" onClick={() => addItemToCart(item, cartAddItem)}>Add to Cart</Button>
         </div >
     );
 }
 
-function addItemToCart(items, item, onCartChanged) {
+function addItemToCart(item, cartAddItem) {
 
-    item.count++;
-    onCartChanged(items);
+    cartAddItem(item);
 }
 
 /* Render sale items */
-function RenderItemsTable({ items, onCartChanged }) {
+function RenderStoreItems({ items, cartAddItem }) {
 
    return (
         <div className="col-lg-8">
            {items.map(item =>
                <div key={item.id} className="cart-item mb-2">
                    <StoreItem item={item} />
-                   <StoreItemFooter items={items} item={item} onCartChanged={onCartChanged}/>
+                   <StoreItemFooter items={items} item={item} cartAddItem={cartAddItem}/>
                 </div>
             )}
         </div>
@@ -36,7 +35,7 @@ function RenderItemsTable({ items, onCartChanged }) {
 
 function Home(props) {
 
-    const { items, loading, onCartChanged } = props;
+    const { items, loading, cartAddItem } = props;
 
     if (loading) {
         return (
@@ -45,12 +44,12 @@ function Home(props) {
     }
     else {    
         return (
-            <React.Fragment>
+            <>
                 <div className="col-lg-12">
-                    <h3 className="page-header">Sale Items</h3>                
-                    <RenderItemsTable items={items} onCartChanged={onCartChanged}/>
+                    <h3 className="page-header">Sale Articles<h5>(max 5 items per article)</h5></h3>
+                    <RenderStoreItems items={items} cartAddItem={cartAddItem}/>
                 </div>
-            </React.Fragment>
+            </>
         );
      }
 }

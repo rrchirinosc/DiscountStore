@@ -9,20 +9,79 @@ class Main extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { items: [], loading: true, cartItemsCount:0 };
+        this.state = { items: [], loading: true, cartItemsCount:0, cartItems: [] };
 
-        //this.updateTable = this.updateTable.bind(this);
-        this.onCartChanged = this.onCartChanged.bind(this);
+        this.cartAddItem = this.cartAddItem.bind(this);
+        this.cartRemoveItem = this.cartRemoveItem.bind(this);
     }
 
     componentDidMount() {
         this.fetchItems();
     }
 
-    /* Callback to reflect a items count change with the Cart */
-    onCartChanged(items) {
-        this.setState({ cartItemsCount: this.state.cartItemsCount + 1 });
-        this.setState({ items : items})
+    /* Count cart items */
+    countCartItems(inCart) {
+
+        let count = 0;
+        inCart.map(item => { count += item.count; });
+
+        return count;
+    }
+
+    /* Callback to reflect adding items to the Cart */
+    //TODO: simplify
+    cartAddItem(item, count = 1) {
+
+        let inCart = [...this.state.cartItems];
+        let index = inCart.length === 0 ? -1 : this.state.cartItems.findIndex((elem) => elem.id === item.id);
+
+        if (index === -1) {
+          
+            let anItem = { ...item };
+            anItem.count = count;
+            // Apply max 5 items per article limit
+            //TODO: issue a message
+            if (anItem.count > 5) {
+                anItem.count = 5;
+            }
+            inCart.push(anItem);
+        }
+        else {
+            let anItem = { ...inCart[index] };
+
+            anItem.count += count;
+
+            // Apply max 5 items per article limit
+            //TODO: issue a message
+            if (anItem.count > 5) {
+                anItem.count = 5;
+            }
+            inCart[index] = anItem;
+        }
+        this.setState({ cartItems : inCart });
+        this.setState({ cartItemsCount: this.countCartItems(inCart) });
+    }
+
+    /* Callback to reflect removing items from the Cart */
+    //TODO: simplify
+    cartRemoveItem(item, count = 1) {
+
+        let inCart = [...this.state.cartItems];
+        if (inCart.length === 0)
+            return; // should show some kind of error
+
+        let index = this.state.cartItems.findIndex((elem) => elem.id === item.id);
+        if (index === -1) 
+            return; // should show some kind of error
+
+        let anItem = { ...inCart[index] };
+        anItem.count = (anItem.Count === 0 || anItem.Count < count) ? 0 : (anItem.count - count);  
+
+        inCart[index] = anItem;
+
+        //TODO: check boundaries!!!!
+        this.setState({ cartItems: inCart });
+        this.setState({ cartItemsCount: this.countCartItems(inCart) });
     }
 
     /* Retrieve all available items */
@@ -36,19 +95,16 @@ class Main extends Component {
     render() {
         const HomePage = () => {
             return (
-                <Home items={this.state.items} loading={this.state.loading} onCartChanged={this.onCartChanged} />
+                <Home items={this.state.items} loading={this.state.loading} cartAddItem={this.cartAddItem} />
             );
         }
 
         const CartPage = () => {
 
-            let cartItems = [];
-            this.state.items.map(item => { if (item.count > 0) cartItems.push(item); return 0;});
-             return (             
-                 <Cart cartItemsCount={this.state.cartItemsCount} cartItems={cartItems}/>
+            return (             
+                <Cart cartItemsCount={this.state.cartItemsCount} cartItems={this.state.cartItems} cartAddItem={this.cartAddItem} cartRemoveItem={this.cartRemoveItem}/>
             );
         }
-
 
         return (
             <div>

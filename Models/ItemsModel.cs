@@ -22,13 +22,14 @@ namespace DiscountStore
             // from a json file iff no access to the database
             try
             {
-                ItemsRepository repo = new ItemsRepository(connection);
+                ItemsRepository repo = new (connection);
                 model.Items = repo.Items.ToList();
             }
             catch (Exception e)
             {
                 string json = File.ReadAllText("./Models/Data/StoreItems.json");
                 model.Items = JsonConvert.DeserializeObject<List<ItemDTO>>(json);
+                Console.Write(e.Message);
             }
 
 

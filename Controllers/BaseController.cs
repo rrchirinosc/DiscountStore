@@ -34,7 +34,7 @@ namespace DiscountStore
             {
                 if (_connection == null)
                 {
-                    SqlConnection connection = new SqlConnection(AppOptions.ConnectionString);
+                    SqlConnection connection = new (AppOptions.ConnectionString);
                     try
                     {                        
                         connection.Open();
@@ -42,6 +42,7 @@ namespace DiscountStore
                     catch (Exception e)
                     {
                         // let null return go through to be handled ahead
+                        Console.Write(e.Message);
                     }
                     _connection = connection;
                 }
